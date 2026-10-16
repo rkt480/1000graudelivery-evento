@@ -4,7 +4,7 @@ Este Apps Script grava cada inscrição na aba `Cadastros` da planilha `Cadastro
 
 ## Publicar o endpoint
 
-1. Abra a [planilha do evento](https://docs.google.com/spreadsheets/d/1k8EYuawyUIjdEPjxzfjexCM6LwgVPPuvpI2IWFLajm/edit).
+1. Abra a [planilha do evento](https://docs.google.com/spreadsheets/d/1k8EYuawyUIjdEPjxzfjexCM6LwgVPPuvpI2IWFLajmM/edit).
 2. No menu, acesse **Extensões → Apps Script**.
 3. Substitua o conteúdo do arquivo `Code.gs` pelo conteúdo de [`Code.gs`](./Code.gs) e salve.
 4. Clique em **Implantar → Nova implantação** e selecione **App da Web**.
