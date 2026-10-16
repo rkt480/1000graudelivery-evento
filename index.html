@@ -25,10 +25,10 @@
     </script>
     <!-- End Meta Pixel Code -->
     <meta name="theme-color" content="#082c16" />
-    <meta name="description" content="Participe da campanha Pensou em Box, Pensou Mil Grau e receba seu cupom de 20%." />
+    <meta name="description" content="Os 30 primeiros cadastros ganham 50% de desconto. Depois, a campanha oferece 20% OFF." />
     <title>Pensou em Box, Pensou Mil Grau</title>
     <link rel="stylesheet" href="styles.css?v=20261016-sheets" />
-    <script src="app.js?v=20261016-sheets-endpoint2" defer></script>
+    <script src="app.js?v=20261016-coupon-tier-endpoint2" defer></script>
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
@@ -53,14 +53,14 @@
           <p class="eyebrow">PENSOU EM BOX</p>
           <h1 id="campaign-title">PENSOU<br /><span class="headline-box">BOX</span></h1>
           <div class="thought-stamp"><span>PENSOU</span><strong>MIL GRAU</strong></div>
-          <p class="campaign-description">Cadastre-se e ganhe <strong>20% de desconto</strong> no seu próximo pedido.</p>
+          <p class="campaign-description">Os 30 primeiros cadastros ganham <strong>50% de desconto</strong>. Depois, 20% OFF.</p>
         </div>
 
         <div class="food-art" role="img" aria-label="Hambúrgueres e acompanhamentos da campanha Mil Grau">
           <div class="food-art-glow"></div>
           <span class="food-note">FEITO PRA MATAR A FOME</span>
           <div class="flame-medallion" role="img" aria-label="Detalhe da arte Pensou em Box"></div>
-          <div class="photo-caption"><span class="caption-mark">20%</span><span><strong>SEU PRÓXIMO PEDIDO</strong><small>com um sabor a mais</small></span></div>
+          <div class="photo-caption"><span class="caption-mark">50%</span><span><strong>PARA OS 30 PRIMEIROS</strong><small>depois, 20% OFF</small></span></div>
         </div>
 
         <footer class="campaign-footer">
@@ -74,7 +74,7 @@
         <div class="form-card">
           <div class="card-topline">
             <span class="step-label"><i></i> ETAPA <b>01</b> <span>/ 02</span></span>
-            <span class="discount-chip">20% OFF</span>
+            <span class="discount-chip">30 PRIMEIROS: 50%</span>
           </div>
 
           <div id="form-screen" class="screen">
@@ -137,7 +137,7 @@
           <div id="coupon-screen" class="screen coupon-screen" hidden aria-labelledby="coupon-title">
             <p class="success-kicker">CUPOM LIBERADO</p>
             <h2 id="coupon-title" tabindex="-1">Esse desconto<br />é seu.</h2>
-            <p class="coupon-intro">Use o cupom abaixo para ganhar <strong>20% OFF</strong> no seu pedido.</p>
+            <p class="coupon-intro">Use o cupom abaixo para ganhar <strong id="coupon-discount">20% OFF</strong> no seu pedido.</p>
             <div class="coupon-ticket">
               <span class="ticket-label">SEU CUPOM</span>
               <div class="coupon-code-row"><strong id="coupon-code">BATALHA20</strong><button class="copy-button" id="copy-coupon" type="button" aria-label="Copiar cupom">⧉</button></div>
@@ -148,7 +148,7 @@
               <span>FAZER MEU PEDIDO</span><span class="button-arrow" aria-hidden="true">↗</span>
             </a>
             <button class="back-button" id="back-to-form" type="button">← Voltar para o cadastro</button>
-            <p class="order-note">Informe o código <strong>BATALHA20</strong> ao fazer seu pedido.</p>
+            <p class="order-note">Informe o código <strong id="order-coupon">BATALHA20</strong> ao fazer seu pedido.</p>
           </div>
         </div>
         <p class="side-caption"><span class="caption-dot"></span> O SEU MOMENTO MIL GRAU COMEÇA AQUI</p>
