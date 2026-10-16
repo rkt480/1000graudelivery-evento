@@ -8,10 +8,17 @@ const copyStatus = document.querySelector('#copy-status');
 const backButton = document.querySelector('#back-to-form');
 const submitButton = form.querySelector('button[type="submit"]');
 const submitButtonLabel = submitButton.querySelector('span');
-const registrationEndpoint = 'https://script.google.com/macros/s/AKfycbxUrf8v3xzsc7TFTJgRG9Lppga4FEOsbeEoWNI4p0vfZy00RMosChUfSg79YK7KseNTow/exec';
+const couponCode = document.querySelector('#coupon-code');
+const couponDiscount = document.querySelector('#coupon-discount');
+const orderCoupon = document.querySelector('#order-coupon');
+const registrationEndpoint = 'https://script.google.com/macros/s/AKfycbxnUzQftaMr3fSdXMXqCI6gHQfimtADwodEi3660YlIros16GuNbiy7lPvHYDjIi5Sh/exec';
+const coupons = {
+  BATALHA50: { code: 'BATALHA50', discount: 50 },
+  BATALHA20: { code: 'BATALHA20', discount: 20 }
+};
 
 function phoneDigits(value) {
-  let digits = value.replace(/\D/g, '');
+  let digits = value.replace(/[^0-9]/g, '');
   if (digits.startsWith('55') && digits.length > 11) digits = digits.slice(2);
   return digits.slice(0, 11);
 }
@@ -39,13 +46,29 @@ phoneInput.addEventListener('blur', () => {
   phoneInput.setCustomValidity(digits.length === 10 || digits.length === 11 ? '' : 'Informe um WhatsApp com DDD.');
 });
 
-function showCoupon(updateHistory = true) {
+function currentCoupon() {
+  try {
+    const saved = JSON.parse(sessionStorage.getItem('milgrau-cupom'));
+    const coupon = coupons[saved && saved.code];
+    if (coupon && coupon.discount === Number(saved.discount)) return coupon;
+  } catch {
+    // Older sessions only stored the unlock flag; keep them on the original coupon.
+  }
+  return coupons.BATALHA20;
+}
+
+function showCoupon(assignment, updateHistory = true) {
+  const coupon = assignment || currentCoupon();
+  couponCode.textContent = coupon.code;
+  couponDiscount.textContent = `${coupon.discount}% OFF`;
+  orderCoupon.textContent = coupon.code;
   formScreen.hidden = true;
   couponScreen.hidden = false;
   formError.hidden = true;
   if (updateHistory && window.location.hash !== '#cupom') history.pushState({ coupon: true }, '', '#cupom');
   sessionStorage.setItem('milgrau-cupom-liberado', '1');
-  document.title = 'Seu cupom BATALHA20 — Mil Grau';
+  sessionStorage.setItem('milgrau-cupom', JSON.stringify(coupon));
+  document.title = `Seu cupom ${coupon.code} — Mil Grau`;
   couponScreen.querySelector('h2').focus({ preventScroll: true });
   if (window.matchMedia('(max-width: 760px)').matches) {
     couponScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -58,6 +81,7 @@ function showForm(clearSession = true) {
   couponScreen.hidden = true;
   formScreen.hidden = false;
   if (clearSession) sessionStorage.removeItem('milgrau-cupom-liberado');
+  if (clearSession) sessionStorage.removeItem('milgrau-cupom');
   if (window.location.hash) history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
   document.title = 'Pensou em Box, Pensou Mil Grau';
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -105,7 +129,14 @@ form.addEventListener('submit', async (event) => {
       return;
     }
 
-    showCoupon();
+    const assignedCoupon = coupons[result.coupon];
+    if (!assignedCoupon || assignedCoupon.discount !== Number(result.discount)) {
+      formError.textContent = 'Seu cadastro foi recebido, mas o cupom não pôde ser identificado. Fale com a equipe Mil Grau.';
+      formError.hidden = false;
+      return;
+    }
+
+    showCoupon(assignedCoupon);
   } catch {
     formError.textContent = 'Não foi possível confirmar o salvamento. Verifique sua conexão e tente novamente.';
     formError.hidden = false;
@@ -138,12 +169,12 @@ backButton.addEventListener('click', () => showForm());
 
 window.addEventListener('popstate', () => {
   if (window.location.hash === '#cupom' && sessionStorage.getItem('milgrau-cupom-liberado') === '1') {
-    showCoupon(false);
+    showCoupon(undefined, false);
   } else {
     showForm(false);
   }
 });
 
 if (window.location.hash === '#cupom' && sessionStorage.getItem('milgrau-cupom-liberado') === '1') {
-  showCoupon(false);
+  showCoupon(undefined, false);
 }
