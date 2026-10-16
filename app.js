@@ -90,15 +90,24 @@ form.addEventListener('submit', async (event) => {
   };
 
   try {
-    await fetch(registrationEndpoint, {
+    const response = await fetch(registrationEndpoint, {
       method: 'POST',
-      mode: 'no-cors',
+      mode: 'cors',
       headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
       body: JSON.stringify(payload)
     });
+
+    if (!response.ok) throw new Error('request-failed');
+    const result = await response.json();
+    if (!result.ok) {
+      formError.textContent = result.error || 'Não foi possível salvar seu cadastro. Tente novamente.';
+      formError.hidden = false;
+      return;
+    }
+
     showCoupon();
   } catch {
-    formError.textContent = 'Não foi possível enviar seu cadastro. Verifique sua conexão e tente novamente.';
+    formError.textContent = 'Não foi possível confirmar o salvamento. Verifique sua conexão e tente novamente.';
     formError.hidden = false;
   } finally {
     submitButton.disabled = false;
