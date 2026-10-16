@@ -11,7 +11,27 @@ const HEADERS = [
   'Segue a Mil Grau no Instagram?'
 ];
 
+function doGet() {
+  try {
+    const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+    return jsonResponse({
+      ok: true,
+      spreadsheetAccess: true,
+      targetSheetExists: Boolean(spreadsheet.getSheetByName(SHEET_NAME))
+    });
+  } catch (error) {
+    console.error('Falha ao verificar acesso à planilha: ' + (error && error.message || 'erro desconhecido'));
+    return jsonResponse({
+      ok: false,
+      spreadsheetAccess: false,
+      stage: 'spreadsheet_access',
+      error: 'O Apps Script não conseguiu acessar a planilha.'
+    });
+  }
+}
+
 function doPost(event) {
+  let stage = 'request_parse';
   try {
     const payload = JSON.parse(event && event.postData && event.postData.contents || '{}');
 
@@ -20,15 +40,20 @@ function doPost(event) {
       return jsonResponse({ ok: true });
     }
 
+    stage = 'validation';
     const record = validatePayload(payload);
+    stage = 'lock';
     const lock = LockService.getScriptLock();
     lock.waitLock(10000);
 
     try {
+      stage = 'spreadsheet_access';
       const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+      stage = 'sheet_setup';
       let sheet = spreadsheet.getSheetByName(SHEET_NAME);
       if (!sheet) sheet = spreadsheet.insertSheet(SHEET_NAME);
       if (sheet.getLastRow() === 0) sheet.appendRow(HEADERS);
+      stage = 'append_row';
       sheet.appendRow([
         new Date(),
         safeCell(record.name),
@@ -45,8 +70,12 @@ function doPost(event) {
 
     return jsonResponse({ ok: true });
   } catch (error) {
-    console.error('Falha ao registrar cadastro: ' + (error && error.message || 'erro desconhecido'));
-    return jsonResponse({ ok: false, error: 'Não foi possível salvar o cadastro.' });
+    console.error('Falha ao registrar cadastro na etapa ' + stage + ': ' + (error && error.message || 'erro desconhecido'));
+    return jsonResponse({
+      ok: false,
+      stage: stage,
+      error: 'Não foi possível salvar o cadastro (' + stage + ').'
+    });
   }
 }
 
