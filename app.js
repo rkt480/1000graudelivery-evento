@@ -6,6 +6,9 @@ const formError = document.querySelector('#form-error');
 const copyButton = document.querySelector('#copy-coupon');
 const copyStatus = document.querySelector('#copy-status');
 const backButton = document.querySelector('#back-to-form');
+const submitButton = form.querySelector('button[type="submit"]');
+const submitButtonLabel = submitButton.querySelector('span');
+const registrationEndpoint = 'https://script.google.com/macros/s/AKfycbyn3svb6fImkAI7Eh_LhDVieXTXc8d_MaDURTGnLvr0bShNepBzFgTgnG3V8Fvx7fX9hg/exec';
 
 function phoneDigits(value) {
   let digits = value.replace(/\D/g, '');
@@ -60,7 +63,7 @@ function showForm(clearSession = true) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-form.addEventListener('submit', (event) => {
+form.addEventListener('submit', async (event) => {
   event.preventDefault();
   phoneInput.setCustomValidity('');
   const digits = phoneDigits(phoneInput.value);
@@ -69,7 +72,38 @@ form.addEventListener('submit', (event) => {
   }
   if (!form.reportValidity()) return;
   if (!form.checkValidity()) return;
-  showCoupon();
+
+  formError.hidden = true;
+  submitButton.disabled = true;
+  submitButtonLabel.textContent = 'ENVIANDO...';
+
+  const formData = new FormData(form);
+  const payload = {
+    name: formData.get('name'),
+    whatsapp: formData.get('whatsapp'),
+    email: formData.get('email'),
+    city: formData.get('city'),
+    neighborhood: formData.get('neighborhood'),
+    knowsBrand: formData.get('knows-brand'),
+    followsInstagram: formData.get('follows-instagram'),
+    website: formData.get('website') || ''
+  };
+
+  try {
+    await fetch(registrationEndpoint, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+      body: JSON.stringify(payload)
+    });
+    showCoupon();
+  } catch {
+    formError.textContent = 'Não foi possível enviar seu cadastro. Verifique sua conexão e tente novamente.';
+    formError.hidden = false;
+  } finally {
+    submitButton.disabled = false;
+    submitButtonLabel.textContent = 'VER MEU CUPOM';
+  }
 });
 
 copyButton.addEventListener('click', async () => {

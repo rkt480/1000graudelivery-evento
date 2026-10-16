@@ -272,11 +272,13 @@ h1 {
 }
 .submit-button:hover { background: #ff641b; box-shadow: 0 7px 0 var(--orange-dark); transform: translateY(-2px); }
 .submit-button:active { box-shadow: 0 2px 0 var(--orange-dark); transform: translateY(3px); }
+.submit-button:disabled { cursor: wait; opacity: .82; transform: none; }
 .submit-button:focus-visible, .copy-button:focus-visible, .back-button:focus-visible { outline: 3px solid rgba(242, 84, 12, .45); outline-offset: 3px; }
 .button-arrow { display: grid; width: 31px; height: 31px; place-items: center; background: rgba(8, 44, 22, .18); border-radius: 50%; font-size: 18px; line-height: 1; }
 .form-footnote { margin: 0; color: #858d83; font-size: 9px; line-height: 1.35; }
 .form-footnote span { margin-right: 4px; color: var(--orange); }
 .form-error { margin: -3px 0 0; color: #ab3315; font-size: 11px; font-weight: 700; }
+.bot-field { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
 .side-caption { display: flex; align-items: center; justify-content: center; gap: 9px; margin: 21px 0 0; color: rgba(247, 234, 216, .6); font-size: 8px; }
 .caption-dot { width: 6px; height: 6px; }
