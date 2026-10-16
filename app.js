@@ -8,7 +8,7 @@ const copyStatus = document.querySelector('#copy-status');
 const backButton = document.querySelector('#back-to-form');
 const submitButton = form.querySelector('button[type="submit"]');
 const submitButtonLabel = submitButton.querySelector('span');
-const registrationEndpoint = 'https://script.google.com/macros/s/AKfycbyn3svb6fImkAI7Eh_LhDVieXTXc8d_MaDURTGnLvr0bShNepBzFgTgnG3V8Fvx7fX9hg/exec';
+const registrationEndpoint = 'https://script.google.com/macros/s/AKfycbxUrf8v3xzsc7TFTJgRG9Lppga4FEOsbeEoWNI4p0vfZy00RMosChUfSg79YK7KseNTow/exec';
 
 function phoneDigits(value) {
   let digits = value.replace(/\D/g, '');
