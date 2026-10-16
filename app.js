@@ -44,7 +44,11 @@ function showCoupon(updateHistory = true) {
   sessionStorage.setItem('milgrau-cupom-liberado', '1');
   document.title = 'Seu cupom BATALHA20 — Mil Grau';
   couponScreen.querySelector('h2').focus({ preventScroll: true });
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (window.matchMedia('(max-width: 760px)').matches) {
+    couponScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }
 
 function showForm(clearSession = true) {
