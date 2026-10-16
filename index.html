@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#082c16" />
+    <meta name="description" content="Participe da campanha Pensou em Box, Pensou Mil Grau e receba seu cupom de 20%." />
+    <title>Pensou em Box, Pensou Mil Grau</title>
+    <link rel="stylesheet" href="styles.css?v=20261016-coupon" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="campaign-side" aria-labelledby="campaign-title">
+        <header class="brand-row">
+          <a class="brand" href="#inicio" aria-label="Mil Grau Delivery — início">
+            <img class="brand-logo" src="assets/mil-grau-logo.png" alt="" />
+          </a>
+          <span class="campaign-tag"><span class="tag-dot"></span> CAMPANHA ESPECIAL</span>
+        </header>
+
+        <div class="campaign-copy" id="inicio">
+          <p class="eyebrow">PENSOU EM BOX</p>
+          <h1 id="campaign-title">PENSOU<br /><span class="headline-box">BOX</span></h1>
+          <div class="thought-stamp"><span>PENSOU</span><strong>MIL GRAU</strong></div>
+          <p class="campaign-description">Cadastre-se e ganhe <strong>20% de desconto</strong> no seu próximo pedido.</p>
+        </div>
+
+        <div class="food-art" role="img" aria-label="Hambúrgueres e acompanhamentos da campanha Mil Grau">
+          <div class="food-art-glow"></div>
+          <span class="food-note">FEITO PRA MATAR A FOME</span>
+          <div class="flame-medallion" role="img" aria-label="Detalhe da arte Pensou em Box"></div>
+          <div class="photo-caption"><span class="caption-mark">20%</span><span><strong>SEU PRÓXIMO PEDIDO</strong><small>com um sabor a mais</small></span></div>
+        </div>
+
+        <footer class="campaign-footer">
+          <span class="footer-line"></span>
+          <span>O SABOR DA MIL GRAU, NA SUA CASA.</span>
+          <span class="footer-line"></span>
+        </footer>
+      </section>
+
+      <section class="form-side" aria-label="Cadastro da campanha">
+        <div class="form-card">
+          <div class="card-topline">
+            <span class="step-label"><i></i> ETAPA <b>01</b> <span>/ 02</span></span>
+            <span class="discount-chip">20% OFF</span>
+          </div>
+
+          <div id="form-screen" class="screen">
+            <h2>Participe<br />da campanha.</h2>
+            <p class="form-intro">Preencha seus dados e responda rapidinho.</p>
+
+            <form id="registration-form" novalidate>
+              <div class="field field-full">
+                <label for="full-name">Nome</label>
+                <input id="full-name" name="name" type="text" autocomplete="name" placeholder="Como podemos te chamar?" required />
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label for="whatsapp">WhatsApp</label>
+                  <input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000" maxlength="15" required aria-describedby="phone-hint" />
+                  <span class="field-hint" id="phone-hint">Com DDD</span>
+                </div>
+                <div class="field">
+                  <label for="email">E-mail</label>
+                  <input id="email" name="email" type="email" autocomplete="email" placeholder="voce@email.com" required />
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label for="city">Cidade</label>
+                  <input id="city" name="city" type="text" autocomplete="address-level2" placeholder="Sua cidade" required />
+                </div>
+                <div class="field">
+                  <label for="neighborhood">Bairro</label>
+                  <input id="neighborhood" name="neighborhood" type="text" autocomplete="address-level3" placeholder="Seu bairro" required />
+                </div>
+              </div>
+
+              <fieldset class="question-group">
+                <legend>Você já conhecia a Mil Grau?</legend>
+                <div class="choice-row">
+                  <label class="choice"><input type="radio" name="knows-brand" value="sim" required /><span>SIM</span></label>
+                  <label class="choice"><input type="radio" name="knows-brand" value="nao" /><span>NÃO</span></label>
+                </div>
+              </fieldset>
+
+              <fieldset class="question-group question-group-last">
+                <legend>Já segue a Mil Grau no Instagram?</legend>
+                <div class="choice-row">
+                  <label class="choice"><input type="radio" name="follows-instagram" value="sim" required /><span>SIM</span></label>
+                  <label class="choice"><input type="radio" name="follows-instagram" value="nao" /><span>NÃO</span></label>
+                </div>
+              </fieldset>
+
+              <p class="form-error" id="form-error" role="alert" hidden></p>
+              <button class="submit-button" type="submit"><span>VER MEU CUPOM</span><span class="button-arrow" aria-hidden="true">↗</span></button>
+              <p class="form-footnote"><span aria-hidden="true">✦</span> Depois do cadastro, seu cupom aparece aqui.</p>
+            </form>
+          </div>
+
+          <div id="coupon-screen" class="screen coupon-screen" hidden aria-labelledby="coupon-title">
+            <p class="success-kicker">CUPOM LIBERADO</p>
+            <h2 id="coupon-title" tabindex="-1">Esse desconto<br />é seu.</h2>
+            <p class="coupon-intro">Use o cupom abaixo para ganhar <strong>20% OFF</strong> no seu pedido.</p>
+            <div class="coupon-ticket">
+              <span class="ticket-label">SEU CUPOM</span>
+              <div class="coupon-code-row"><strong id="coupon-code">BATALHA20</strong><button class="copy-button" id="copy-coupon" type="button" aria-label="Copiar cupom">⧉</button></div>
+              <span class="ticket-validity">Válido até <strong>30/10/26</strong></span>
+            </div>
+            <p class="copy-status" id="copy-status" aria-live="polite"></p>
+            <a class="submit-button order-button" href="https://pedido.brendi.com.br/mil-grau-bela-aurora?utm_source=batalha_banner&amp;utm_medium=acao_batalha_banner&amp;utm_content=batalha_banner" target="_blank" rel="noopener noreferrer">
+              <span>FAZER MEU PEDIDO</span><span class="button-arrow" aria-hidden="true">↗</span>
+            </a>
+            <button class="back-button" id="back-to-form" type="button">← Voltar para o cadastro</button>
+            <p class="order-note">Informe o código <strong>BATALHA20</strong> ao fazer seu pedido.</p>
+          </div>
+        </div>
+        <p class="side-caption"><span class="caption-dot"></span> O SEU MOMENTO MIL GRAU COMEÇA AQUI</p>
+      </section>
+    </main>
+  </body>
+</html>
